@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">AppSwipe</string>
+    <string-array name="questoes">
+        <item>Você gosta de andar de Bike?</item>
+        <item>Você gosta de comer pizza?</item>
+        <item>Você posssui um pâncreas </item>
+        <item>Você tem pulmões?</item>
+        <item>Possui batimentos cardiacos?</item>
+    </string-array>
+    <string-array name="respostas">
+        <item>Sim</item>
+        <item>Não</item>
+    </string-array>
+</resources>
