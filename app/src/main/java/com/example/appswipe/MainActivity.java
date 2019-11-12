@@ -1,5 +1,6 @@
 package com.example.appswipe;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -12,25 +13,30 @@ public class MainActivity extends AppCompatActivity {
 
     private ConstraintLayout tela ;
     private TextView tvSwipe;
-    private  final String[] questoes = new String[4];
-    private  final String[] respostasSIM = new String[4];
-    private  final String[] respostasNAO = new String[4];
+    private  final String[] questoes = new String[5];
+    private   boolean[] respostas;
+    private  boolean[] gabarito ;
     private int cont = 0;
+    private int contrespost = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        questoes[0] = "Você tem cancer?";
-        questoes[1] = "Você tem pancreatite?";
-        questoes[2] = "Você tem peste bubonica?";
-        questoes[3] = "Você tem HIV?";
-        questoes[4] = "Você tem DST's?";
+        questoes[0] = "2+2 = 4 ?";
+        questoes[1] = "3-2 = 0 ?";
+        questoes[2] = "5-5 = 0 ?";
+        questoes[3] = "6-2 = 4 ?";
+        questoes[4] = "3-2 = 1 ?";
+
+        gabarito = new boolean[] {true,false,true,true,true};
+
 
 
 
         cont = 0;
+        contrespost = 0;
 
 
 
@@ -39,35 +45,50 @@ public class MainActivity extends AppCompatActivity {
 
         tvSwipe = findViewById(R.id.tvSwipe);
 
+        tvSwipe.setText(questoes[0]);
 
 
         tela.setOnTouchListener(new OnSwipeTouchListener(this){
             @Override
             public void onSwipeBottom() {
                 super.onSwipeBottom();
-                tvSwipe.setText("para Baixo!!!");
+                tvSwipe.setText("Não!!!");
+                respostas[contrespost] = true;
+                contrespost++;
+                if(contrespost == 4){
 
+                }
             }
 
             @Override
             public void onSwipeTop() {
                 super.onSwipeTop();
 
-                tvSwipe.setText("para Cima!!!");
+                tvSwipe.setText("SIM!!!");
+                respostas[contrespost] = true;
+                contrespost++;
+                if(contrespost == 4){
+                    
+                }
             }
 
             @Override
             public void onSwipeLeft() {
                 super.onSwipeLeft();
-                tvSwipe.setText("para Esquerda!!!");
+                if(cont != 0) {
+                cont --;
+                tvSwipe.setText(questoes[cont]);
+                }
+
+
             }
 
             @Override
             public void onSwipeRight() {
                 super.onSwipeRight();
-                while(cont<=0){
-                 tvSwipe.setText(questoes[cont]);
-                 cont ++;
+                if(cont!= 4) {
+                    cont++;
+                    tvSwipe.setText(questoes[cont]);
                 }
 
             }
