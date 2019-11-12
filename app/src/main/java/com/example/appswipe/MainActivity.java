@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     private  boolean[] gabarito ;
     private int cont = 0;
     private int contrespost = 0;
+    private int teste = 0;
+    private int contacertos = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         cont = 0;
         contrespost = 0;
+        contacertos =0;
 
 
 
@@ -56,7 +59,13 @@ public class MainActivity extends AppCompatActivity {
                 respostas[contrespost] = true;
                 contrespost++;
                 if(contrespost == 4){
-
+                    while(teste != 4){
+                        if(respostas[teste] == gabarito[teste]){
+                            contacertos++;
+                        }
+                    }
+                    tvSwipe.setText("VC ACertou" + contacertos);
+                    return;
                 }
             }
 
@@ -68,7 +77,13 @@ public class MainActivity extends AppCompatActivity {
                 respostas[contrespost] = true;
                 contrespost++;
                 if(contrespost == 4){
-                    
+                    while(teste != 4){
+                        if(respostas[teste] == gabarito[teste]){
+                                contacertos++;
+                        }
+                    }
+                    tvSwipe.setText("VC ACertou" + contacertos);
+                    return;
                 }
             }
 
