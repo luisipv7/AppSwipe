@@ -13,12 +13,12 @@ public class MainActivity extends AppCompatActivity {
 
     private ConstraintLayout tela ;
     private TextView tvSwipe;
-    private  final String[] questoes = new String[5];
+    private  final String[] questoes = new String[7];
     private   boolean[] respostas;
     private  boolean[] gabarito ;
     private int cont = 0;
     private int contrespost = 0;
-    private int teste = 0;
+    private int contaerros = 0;
     private int contacertos = 0;
 
     @Override
@@ -26,11 +26,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        questoes[0] = "2+2 = 4 ?";
-        questoes[1] = "3-2 = 0 ?";
-        questoes[2] = "5-5 = 0 ?";
-        questoes[3] = "6-2 = 4 ?";
-        questoes[4] = "3-2 = 1 ?";
+        questoes[0] = "Pra cima Sim pra baixo Não";
+        questoes[1] = "2+2 = 4 ?";
+        questoes[2] = "3-2 = 0 ?";
+        questoes[3] = "5-5 = 0 ?";
+        questoes[4] = "6-2 = 4 ?";
+        questoes[5] = "3-2 = 1 ?";
+
 
         gabarito = new boolean[] {true,false,true,true,true};
 
@@ -39,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
         cont = 0;
         contrespost = 0;
-        contacertos =0;
+        contacertos= 0;
+        contaerros= 0;
 
 
 
@@ -55,18 +58,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwipeBottom() {
                 super.onSwipeBottom();
-                tvSwipe.setText("Não!!!");
-                respostas[contrespost] = true;
-                contrespost++;
-                if(contrespost == 4){
-                    while(teste != 4){
-                        if(respostas[teste] == gabarito[teste]){
-                            contacertos++;
-                        }
-                    }
-                    tvSwipe.setText("VC ACertou" + contacertos);
-                    return;
-                }
+                tvSwipe.setText("NÃO!!!");
+                respostas[cont] = false;
             }
 
             @Override
@@ -74,17 +67,8 @@ public class MainActivity extends AppCompatActivity {
                 super.onSwipeTop();
 
                 tvSwipe.setText("SIM!!!");
-                respostas[contrespost] = true;
-                contrespost++;
-                if(contrespost == 4){
-                    while(teste != 4){
-                        if(respostas[teste] == gabarito[teste]){
-                                contacertos++;
-                        }
-                    }
-                    tvSwipe.setText("VC ACertou" + contacertos);
-                    return;
-                }
+                respostas[cont] = true;
+
             }
 
             @Override
@@ -101,9 +85,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwipeRight() {
                 super.onSwipeRight();
-                if(cont!= 4) {
+                if(cont!= 5) {
                     cont++;
                     tvSwipe.setText(questoes[cont]);
+                }
+                if(cont == 6){
+                    for(int x=1; x<cont-1; x++){
+                        if(respostas[x] == gabarito[x]){
+                            contacertos++;
+                        }else{
+                            contaerros++;
+                        }
+                    }
+                    tvSwipe.setText("Você acertou " + contacertos + "e errou" + contaerros);
                 }
 
             }
