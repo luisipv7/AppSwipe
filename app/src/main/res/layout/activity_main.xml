@@ -9,11 +9,11 @@
 
     <TextView
         android:id="@+id/tvSwipe"
-        android:layout_width="314dp"
-        android:layout_height="47dp"
+        android:layout_width="364dp"
+        android:layout_height="148dp"
         android:layout_marginBottom="8dp"
         android:textAlignment="center"
-        android:textSize="30dp"
+        android:textSize="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

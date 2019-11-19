@@ -4,8 +4,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.Array;
 
@@ -13,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ConstraintLayout tela ;
     private TextView tvSwipe;
-    private  final String[] questoes = new String[7];
+    private  final String[] questoes = new String[76];
     private   boolean[] respostas;
     private  boolean[] gabarito ;
     private int cont = 0;
@@ -26,16 +29,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        questoes[0] = "Pra cima Sim pra baixo Não";
-        questoes[1] = "2+2 = 4 ?";
-        questoes[2] = "3-2 = 0 ?";
-        questoes[3] = "5-5 = 0 ?";
-        questoes[4] = "6-2 = 4 ?";
-        questoes[5] = "3-2 = 1 ?";
+        Context contexto = getApplicationContext();
+        String texto = "Pra cima SIM pra baixo NÃO";
+        int duracao = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(contexto, texto,duracao);
+        toast.show();
+
+        questoes[0] = "2+2 = 4 ?";
+        questoes[1] = "3-2 = 0 ?";
+        questoes[2] = "5-5 = 0 ?";
+        questoes[3] = "6-2 = 4 ?";
+        questoes[4] = "3-2 = 1 ?";
 
 
         gabarito = new boolean[] {true,false,true,true,true};
-
+        respostas = new boolean[5] ;
 
 
 
@@ -74,30 +83,34 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwipeLeft() {
                 super.onSwipeLeft();
-                if(cont != 0) {
-                cont --;
-                tvSwipe.setText(questoes[cont]);
-                }
-
-
-            }
-
-            @Override
-            public void onSwipeRight() {
-                super.onSwipeRight();
-                if(cont!= 5) {
+                if(cont < 4) {
                     cont++;
                     tvSwipe.setText(questoes[cont]);
-                }
-                if(cont == 6){
-                    for(int x=1; x<cont-1; x++){
-                        if(respostas[x] == gabarito[x]){
+
+
+                }else{
+                    for(int x=0 ; x<5; x++){
+                        Log.i("for", "valor:  "+ x);
+                        if(respostas[x]== gabarito[x]){
                             contacertos++;
                         }else{
                             contaerros++;
                         }
                     }
-                    tvSwipe.setText("Você acertou " + contacertos + "e errou" + contaerros);
+                    tvSwipe.setText("Você acertou " + contacertos + " e errou " + contaerros);
+                    cont = -1;
+                    contacertos= 0;
+                    contaerros= 0;
+                    respostas = new boolean[5];
+                }
+            }
+
+            @Override
+            public void onSwipeRight() {
+                super.onSwipeRight();
+                if(cont != 0) {
+                    cont --;
+                    tvSwipe.setText(questoes[cont]);
                 }
 
             }
